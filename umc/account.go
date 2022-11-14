@@ -24,12 +24,12 @@ func unmarshalAcct(resp *http.Response) *acctResponse {
 }
 func getAcctDestUrl(id *string) *url.URL {
 
-	host := getDestHost()
-	uri := getUMCUri(host)
+	host := destHost()
+	uri := umcURI(host)
 	r := "accounts"
 
 	respType := "json"
-	opUrl, err := url.Parse(*constructURL(uri, &r, &respType, id))
+	opUrl, err := url.Parse(*constructURL(&uri, &r, &respType, id))
 	if err != nil {
 		log.Println(err)
 	}

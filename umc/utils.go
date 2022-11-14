@@ -22,12 +22,12 @@ func onPremGET(Url *url.URL) *http.Response {
 	if err != nil {
 		log.Println(err)
 	}
-	authorization := authSet()
+	authorization := authorization()
 	h := map[string][]string{
 		"Content-Type":                     {"application/json"},
 		"SAP-Connectivity-SCC-Location_ID": {""},
-		"Authorization":                    {*authorization},
-		"sap-client":                       {*setSAPClient()},
+		"Authorization":                    {authorization},
+		"sap-client":                       {sapClient()},
 	}
 	request.Header = h
 
@@ -38,38 +38,38 @@ func onPremGET(Url *url.URL) *http.Response {
 	}
 	return resp
 }
-func setSAPClient() *string {
+func sapClient() string {
 	c := "100"
-	return &c
+	return c
 }
-func authSet() *string {
+func authorization() string {
 	a := "Basic" + " " + basicauth("ZZZODATA", "Totw@2022#")
-	return &a
+	return a
 }
 func basicauth(username, password string) string {
 	auth := username + ":" + password
 	return base64.StdEncoding.EncodeToString([]byte(auth))
 }
-func getDestHost() *string {
+func destHost() *string {
 	h := "http://s42020"
 	p := "8001"
 	host := h + ":" + p
 	return &host
 }
-func getUMCUri(host *string) *string {
+func umcURI(host *string) string {
 	u := *host + "/sap/opu/odata/sap/ERP_ISU_UMC/"
-	return &u
+	return u
 }
 func constructURL(uri *string, resource *string, respType *string, id *string) *string {
 	if len(*resource) > 0 {
-		URL := *getUMCUri(getDestHost()) + *getResource(resource, id) + "?" + *getFormat(respType)
+		URL := umcURI(destHost()) + *getResource(resource, id) + "?" + *respFormat(respType)
 		return &URL
 	} else {
-		URL := *getUMCUri(getDestHost()) + *getResource(resource, id)
+		URL := umcURI(destHost()) + *getResource(resource, id)
 		return &URL
 	}
 }
-func getFormat(formatType *string) *string {
+func respFormat(formatType *string) *string {
 	switch t := *formatType; t {
 	case "json":
 		f := "$format=" + *formatType
