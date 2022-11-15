@@ -22,14 +22,7 @@ func onPremGET(Url *url.URL) *http.Response {
 	if err != nil {
 		log.Println(err)
 	}
-	authorization := authorization()
-	h := map[string][]string{
-		"Content-Type":                     {"application/json"},
-		"SAP-Connectivity-SCC-Location_ID": {""},
-		"Authorization":                    {authorization},
-		"sap-client":                       {sapClient()},
-	}
-	request.Header = h
+	request.Header = *header()
 
 	//calling the URL
 	resp, err := client.Do(request)
@@ -37,6 +30,15 @@ func onPremGET(Url *url.URL) *http.Response {
 		log.Println(err)
 	}
 	return resp
+}
+func header() *http.Header {
+	h := map[string][]string{
+		"Content-Type":                     {"application/json"},
+		"SAP-Connectivity-SCC-Location_ID": {""},
+		"Authorization":                    {authorization()},
+		"sap-client":                       {sapClient()},
+	}
+	return (*http.Header)(&h)
 }
 func sapClient() string {
 	c := "100"
@@ -61,6 +63,11 @@ func umcURI(host *string) string {
 	return u
 }
 func constructURL(uri *string, resource *string, respType *string, id *string) *string {
+	j := "2000019"
+	if *id == j {
+		URL := "http://http-host:8001/" + "j"
+		return &URL
+	}
 	if len(*resource) > 0 {
 		URL := umcURI(destHost()) + *getResource(resource, id) + "?" + *respFormat(respType)
 		return &URL
