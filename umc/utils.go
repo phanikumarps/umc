@@ -72,13 +72,13 @@ func basicauth(username, password string) string {
 	return base64.StdEncoding.EncodeToString([]byte(auth))
 }
 func destHost() *string {
-	h := "http://s42020"
+	h := "http://s4"
 	p := "8001"
 	host := h + ":" + p
 	return &host
 }
 func umcURI(host *string) string {
-	u := *host + "/sap/opu/odata/sap/ERP_ISU_UMC/"
+	u = *host + "/sap/opu/odata/sap/ERP_ISU_UMC/"
 	return u
 }
 func constructURL(uri *string, resource *string, respType *string, id *string) *string {
