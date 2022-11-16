@@ -64,7 +64,7 @@ func sapClient() string {
 	return c
 }
 func authorization() string {
-	a := "Basic" + " " + basicauth("ZZZODATA", "Totw@2022#")
+	a := "Basic" + " " + basicauth("ZZZODATA", "Totw@4570#")
 	return a
 }
 func basicauth(username, password string) string {
