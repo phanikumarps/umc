@@ -10,7 +10,7 @@ import (
 
 func GetAccount(id *string) *acctResponse {
 	acctUrl := getAcctDestUrl(id)
-	resp := onPremGET(acctUrl)
+	resp := opGET(acctUrl)
 	return unmarshalAcct(resp)
 }
 func unmarshalAcct(resp *http.Response) *acctResponse {

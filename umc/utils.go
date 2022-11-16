@@ -5,8 +5,27 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 )
 
+func opGET(Url *url.URL) *http.Response {
+	os.Setenv("HTTP_PROXY", "http://connectivity-proxy.kyma-system.svc.cluster.local:20003")
+	//generating the HTTP GET request
+	request, err := http.NewRequest("GET", Url.String(), nil)
+	if err != nil {
+		log.Println(err)
+	}
+	request.Header = *header()
+
+	//calling the URL
+	client := http.Client{}
+	resp, err := client.Do(request)
+	if err != nil {
+		log.Println(err)
+	}
+	return resp
+
+}
 func onPremGET(Url *url.URL) *http.Response {
 	transport := &http.Transport{
 		Proxy: http.ProxyURL(proxyURL()),
