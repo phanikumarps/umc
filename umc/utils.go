@@ -78,7 +78,7 @@ func destHost() *string {
 	return &host
 }
 func umcURI(host *string) string {
-	u = *host + "/sap/opu/odata/sap/ERP_ISU_UMC/"
+	u := *host + "/sap/opu/odata/sap/ERP_ISU_UMC/"
 	return u
 }
 func constructURL(uri *string, resource *string, respType *string, id *string) *string {

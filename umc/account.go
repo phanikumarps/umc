@@ -8,8 +8,8 @@ import (
 	"net/url"
 )
 
-func GetAccount(id *string) *acctResponse {
-	acctUrl := getAcctDestUrl(id)
+func Account(id *string) *acctResponse {
+	acctUrl := acctDestUrl(id)
 	resp := opGET(acctUrl)
 	return unmarshalAcct(resp)
 }
@@ -22,7 +22,7 @@ func unmarshalAcct(resp *http.Response) *acctResponse {
 	json.Unmarshal(data, &acctData)
 	return acctData
 }
-func getAcctDestUrl(id *string) *url.URL {
+func acctDestUrl(id *string) *url.URL {
 
 	host := destHost()
 	uri := umcURI(host)
