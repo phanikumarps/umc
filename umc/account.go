@@ -8,6 +8,25 @@ import (
 	"net/url"
 )
 
+func Metadata() interface{} {
+	mUrl := metadataUrl()
+	resp := opGET(mUrl)
+	return resp
+}
+func metadataUrl() *url.URL {
+
+	host := destHost()
+	uri := umcURI(host)
+	r := ""
+
+	respType := "json"
+	id := ""
+	opUrl, err := url.Parse(*constructURL(&uri, &r, &respType, &id))
+	if err != nil {
+		log.Println(err)
+	}
+	return opUrl
+}
 func Account(id *string) *acctResponse {
 	acctUrl := acctDestUrl(id)
 	resp := opGET(acctUrl)

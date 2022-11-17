@@ -44,3 +44,27 @@ func getlocalvmUrl() *url.URL {
 	}
 	return opUrl
 }
+
+func Test_metadataUrl(t *testing.T) {
+	tests := []struct {
+		name string
+		want *url.URL
+	}{
+		// TODO: Add test cases.
+		{"Metadata", getmetadataUrl()},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := metadataUrl(); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("metadataUrl() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+func getmetadataUrl() *url.URL {
+	opUrl, err := url.Parse("http://s4:8001/sap/opu/odata/sap/ERP_ISU_UMC/$metadata")
+	if err != nil {
+		fmt.Println(err)
+	}
+	return opUrl
+}
