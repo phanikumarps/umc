@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func Test_getAcctDestUrl(t *testing.T) {
+func Test_acctDestUrl(t *testing.T) {
 	accountid := "2000018"
 	localvmacctid := "2000019"
 	type args struct {
