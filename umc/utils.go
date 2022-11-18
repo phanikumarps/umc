@@ -71,8 +71,14 @@ func basicauth(username, password string) string {
 	auth := username + ":" + password
 	return base64.StdEncoding.EncodeToString([]byte(auth))
 }
-func destHost() *string {
+func destHostVM() *string {
 	h := "http://s4"
+	p := "8001"
+	host := h + ":" + p
+	return &host
+}
+func destHost() *string {
+	h := "http://s42020"
 	p := "8001"
 	host := h + ":" + p
 	return &host
